@@ -67,7 +67,7 @@ RedisClients = RedisClient()
 
 class ElasticsClient:
 
-    def __init__(self, index_name, index_type, _index_mappings,
+    def __init__(self, index_name, index_type,
                     ip = Config.ELASTICS_HOST ,port = Config.ELASTICS_PORT, 
                     maxsize=Config.ELASTICS_MAX_CONNECTION):
         '''
@@ -76,29 +76,31 @@ class ElasticsClient:
         '''
         self.index_name =index_name
         self.index_type = index_type
-        self._index_mappings = _index_mappings
         self.logger = get_logger("logger_elastics_")
         #用户名密码状态
         #self.es = Elasticsearch([ip],http_auth=('elastic', 'password'),port=9200)
         # 无用户名密码状态
         self.es = Elasticsearch([ip],port=port,maxsize=maxsize)
 
-    def create_index(self):
+    def create_index(self,_index_mappings):
         '''
          param ex: Elasticsearch对象
         :return:
         '''
         if self.es.indices.exists(index=self.index_name) is not True:
-            res = self.es.indices.create(index=self.index_name, body=self._index_mappings)
+            res = self.es.indices.create(index=self.index_name, body=_index_mappings)
             self.logger.info("创建索引索引成功 >>>> {0} - {1} !".format(self.index_name, self.index_type))
+        # else:
+        #     self.delete_index()
+        #     self.create_index(_index_mappings)
 
-    def delete_index(self,index_name):
+    def delete_index(self):
         '''
         删除所有
         '''
-        res = self.es.indices.delete(index=index_name)
+        res = self.es.indices.delete(index=self.index_name)
         if(res['acknowledged']):
-            self.logger.info("删除所有成功 >>>> {0} !".format(self.index_name))
+            self.logger.info("删除索引成功 >>>> {0} !".format(self.index_name))
 
     def Index_Data(self,list,infohash):
         '''
@@ -188,7 +190,7 @@ class ElasticsClient:
         doc = {
             "query": {
                 "match": {
-                    "file_list": "Woodman"
+                    "file_list": "スジッ娘倶楽部"
                 }
             }
         }
