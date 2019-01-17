@@ -19,7 +19,7 @@ class RedisClient:
             max_connections=Config.REDIS_MAX_CONNECTION,
         )
         self.redis = redis.Redis(connection_pool=conn_pool)
-        self.logger = get_logger("logger_redis")
+        self.logger = get_logger("logger_redis_{}".format(port))
         
     def add_magnet(self, magnet):
         """
@@ -67,8 +67,7 @@ RedisClients = RedisClient()
 
 class ElasticsClient:
 
-    def __init__(self, index_name=Config.ELASTICS_INDEX_NAME, 
-                    index_type=Config.ELASTICS_INDEX_TYPE, 
+    def __init__(self, index_name, index_type, _index_mappings,
                     ip = Config.ELASTICS_HOST ,port = Config.ELASTICS_PORT, 
                     maxsize=Config.ELASTICS_MAX_CONNECTION):
         '''
@@ -77,77 +76,40 @@ class ElasticsClient:
         '''
         self.index_name =index_name
         self.index_type = index_type
+        self._index_mappings = _index_mappings
+        self.logger = get_logger("logger_elastics_")
         #用户名密码状态
         #self.es = Elasticsearch([ip],http_auth=('elastic', 'password'),port=9200)
         # 无用户名密码状态
         self.es = Elasticsearch([ip],port=port,maxsize=maxsize)
-        #创建索引
-        self.create_index()
 
     def create_index(self):
         '''
-        创建索引,创建索引名称为ott，类型为ott_type的索引
-        :param ex: Elasticsearch对象
+         param ex: Elasticsearch对象
         :return:
         '''
-        #创建映射
-        _index_mappings = {
-            "mappings": {
-                self.index_type: {
-                    "properties": {
-                        "title": {
-                            "type": "text",
-                            "index": True,
-                            "analyzer": "ik_max_word",
-                            "search_analyzer": "ik_max_word"
-                        },
-                        "date": {
-                            "type": "text",
-                            "index": True
-                        },
-                        "keyword": {
-                            "type": "string",
-                            "index": "not_analyzed"
-                        },
-                        "source": {
-                            "type": "string",
-                            "index": "not_analyzed"
-                        },
-                        "link": {
-                            "type": "string",
-                            "index": "not_analyzed"
-                        }
-                    }
-                }
-
-            }
-        }
         if self.es.indices.exists(index=self.index_name) is not True:
-            res = self.es.indices.create(index=self.index_name, body=_index_mappings)
-            print(res)
+            res = self.es.indices.create(index=self.index_name, body=self._index_mappings)
+            self.logger.info("创建索引索引成功 >>>> {0} - {1} !".format(self.index_name, self.index_type))
 
-    def Index_Data(self):
+    def delete_index(self,index_name):
+        '''
+        删除所有
+        '''
+        res = self.es.indices.delete(index=index_name)
+        if(res['acknowledged']):
+            self.logger.info("删除所有成功 >>>> {0} !".format(self.index_name))
+
+    def Index_Data(self,list,infohash):
         '''
         数据存储到es
         :return:
         '''
-        list = [
-            {   "date": "2017-09-13",
-                "source": "慧聪网",
-                "link": "http://info.broadcast.hc360.com/2017/09/130859749974.shtml",
-                "keyword": "电视",
-                "title": "付费 电视 行业面临的转型和挑战"
-             },
-            {   "date": "2017-09-13",
-                "source": "中国文明网",
-                "link": "http://www.wenming.cn/xj_pd/yw/201709/t20170913_4421323.shtml",
-                "keyword": "电视",
-                "title": "电视 专题片《巡视利剑》广获好评：铁腕反腐凝聚党心民心"
-             }
-              ]
         for item in list:
-            res = self.es.index(index=self.index_name, doc_type=self.index_type, body=item)
-            print(res['created'])
+            res = self.es.index(index=self.index_name, doc_type=self.index_type, body=item, id=infohash)
+            if(res['_shards']['successful'] == 1):
+                self.logger.info("种子入库成功 >>>> {0} - {1}".format(infohash,res['_version']))
+            
 
     def bulk_Index_Data(self):
         '''
@@ -226,14 +188,13 @@ class ElasticsClient:
         doc = {
             "query": {
                 "match": {
-                    "keyword": "电视"
+                    "file_list": "Woodman"
                 }
             }
         }
         _searched = self.es.search(index=self.index_name, doc_type=self.index_type, body=doc)
 
         for hit in _searched['hits']['hits']:
-            # print hit['_source']
-            print(hit['_source']['date'], hit['_source']['source'], hit['_source']['link'], hit['_source']['keyword'],hit['_source']['title'])
+             print(hit)
+            #print(hit['_source']['date'], hit['_source']['source'], hit['_source']['link'], hit['_source']['keyword'],hit['_source']['title'])
 
-ElasticsClients = ElasticsClient() 

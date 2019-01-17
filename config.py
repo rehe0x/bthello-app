@@ -42,10 +42,6 @@ class Config(object):
     REDIS_MAX_CONNECTION = 20
 
     ################elasticsearch配置##################
-    # elastics 索引名
-    ELASTICS_INDEX_NAME = "test"
-     # elastics 索引类型
-    ELASTICS_INDEX_TYPE = "test_type"
     # elastics 地址
     ELASTICS_HOST = "39.108.218.149"
     # elastics 端口
