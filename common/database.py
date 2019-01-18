@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-# coding=utf-8
+#!/usr/bin/env python3
+# encoding: utf-8
 
 import redis
 from elasticsearch import Elasticsearch
@@ -10,9 +10,10 @@ from config import Config
 class RedisClient:
 
     def __init__(
-        self, host=Config.REDIS_HOST, port=Config.REDIS_PORT, password=Config.REDIS_PASSWORD
+        self,db, host=Config.REDIS_HOST, port=Config.REDIS_PORT, password=Config.REDIS_PASSWORD
     ):
         conn_pool = redis.ConnectionPool(
+            db=db,
             host=host,
             port=port,
             password=password,
@@ -62,8 +63,11 @@ class RedisClient:
     def getValue(self,key):
         return self.redis.get(key)
 
-RedisClients = RedisClient()
+    def deleteByKey(self,key):
+        self.redis.delete(key)
 
+RedisClients = RedisClient(0)
+RedisClients1 = RedisClient(1)
 
 class ElasticsClient:
 
