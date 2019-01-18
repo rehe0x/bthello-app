@@ -13,5 +13,5 @@ if __name__ == "__main__":
     t2.start()
 
     app = app.create_app()
-    t1 = threading.Thread(target=app.run)
+    t1 = threading.Thread(target=app.run,args=('0.0.0.0',8000))
     t1.start()
