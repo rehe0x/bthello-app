@@ -189,18 +189,23 @@ class ElasticsClient:
             # print hit['_source']
             print(hit['_source']['date'],hit['_source']['source'],hit['_source']['link'],hit['_source']['keyword'],hit['_source']['title'])
 
-    def Get_Data_By_Body(self):
+    def Get_Data_By_Body(self,value):
         # doc = {'query': {'match_all': {}}}
         doc = {
-            "query": {
-                "match": {
-                    "file_list": "スジッ娘倶楽部"
+                "query": {
+                    "dis_max": {
+                        "queries": [
+                            { "match": { "bare_name": value }},
+                            { "match": { "file_list": value }}
+                        ],
+                        "tie_breaker": 0.3
+                    }
                 }
             }
-        }
+        
         _searched = self.es.search(index=self.index_name, doc_type=self.index_type, body=doc)
-
-        for hit in _searched['hits']['hits']:
-             print(hit)
+        return _searched['hits']['hits']
+        # for hit in _searched['hits']['hits']:
+        #      print(hit)
             #print(hit['_source']['date'], hit['_source']['source'], hit['_source']['link'], hit['_source']['keyword'],hit['_source']['title'])
 
