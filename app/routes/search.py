@@ -12,6 +12,7 @@ serarch = Blueprint('search',__name__)
 def index():
     return render_template('index.html')
 
-@serarch.route('/search/<value>')
-def _serarch(value):
+@serarch.route('/search')
+def _serarch():
+    value = request.args.get('value')
     return str(ElasticsClients.Get_Data_By_Body(value))
