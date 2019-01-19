@@ -26,7 +26,7 @@ def get_parser():
 def command_line_runner():
     parser = get_parser()
     args = vars(parser.parse_args())
-
+    global app
     if args["w"]:
         app = app.create_app()
         t1 = threading.Thread(target=app.run,args=('0.0.0.0',8000))
@@ -42,8 +42,8 @@ def command_line_runner():
         t2 = threading.Thread(target=me.start)
         t2.start()
 
-        app = app.create_app()
-        t1 = threading.Thread(target=app.run,args=('0.0.0.0',8000))
+        apps = app.create_app()
+        t1 = threading.Thread(target=apps.run,args=('0.0.0.0',8000))
         t1.start()
 
 if __name__ == "__main__":
