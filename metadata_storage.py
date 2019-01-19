@@ -15,7 +15,6 @@ class MetadataStorage:
 
     def start(self):
         self.task_handle()
-        print('>>>>>>>>>>>>>>>>>>>')
         timer = threading.Timer(self.task_time,self.start)
         timer.start()
 
