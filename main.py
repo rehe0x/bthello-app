@@ -20,16 +20,21 @@ def get_parser():
         "-a", action="store_true", help="run web_server & metadata_storage_task func"
     )
 
+    parser.add_argument(
+        "-port", type=int, default=8000
+    )
+
     return parser
 
 
 def command_line_runner():
     parser = get_parser()
     args = vars(parser.parse_args())
+    port = args['port']
     global app
     if args["w"]:
         app = app.create_app()
-        t1 = threading.Thread(target=app.run,args=('0.0.0.0',8000))
+        t1 = threading.Thread(target=app.run,args=('0.0.0.0',port))
         t1.start()
     elif args["m"]:
         me = MetadataStorage(2)
@@ -43,7 +48,7 @@ def command_line_runner():
         t2.start()
 
         apps = app.create_app()
-        t1 = threading.Thread(target=apps.run,args=('0.0.0.0',8000))
+        t1 = threading.Thread(target=apps.run,args=('0.0.0.0',port))
         t1.start()
 
 if __name__ == "__main__":
