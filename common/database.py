@@ -71,7 +71,7 @@ RedisClients1 = RedisClient(1)
 
 class ElasticsClient:
 
-    def __init__(self, index_name, index_type,
+    def __init__(self, index_name=Config.ELASTICS_INDEX_NAME, index_type=Config.ELASTICS_INDEX_TYPE,
                     ip = Config.ELASTICS_HOST ,port = Config.ELASTICS_PORT, 
                     maxsize=Config.ELASTICS_MAX_CONNECTION):
         '''
@@ -192,6 +192,7 @@ class ElasticsClient:
     def Get_Data_By_Body(self,value):
         # doc = {'query': {'match_all': {}}}
         doc = {
+                "version": 'true',
                 "query": {
                     "dis_max": {
                         "queries": [
@@ -209,3 +210,4 @@ class ElasticsClient:
         #      print(hit)
             #print(hit['_source']['date'], hit['_source']['source'], hit['_source']['link'], hit['_source']['keyword'],hit['_source']['title'])
 
+ElasticsClients = ElasticsClient()

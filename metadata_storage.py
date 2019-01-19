@@ -2,20 +2,20 @@
 # encoding: utf-8
 import threading
 from time import sleep, time
-from common.database import RedisClients,RedisClients1,ElasticsClient
+from common.database import RedisClients,RedisClients1,ElasticsClients
 from common.utils import get_logger
 
 class MetadataStorage:
-    def __init__(self,index_name,index_type,task_time):
-        self.ElasticsClients = ElasticsClient(index_name,index_type) 
+    def __init__(self,task_time):
         self.task_time = task_time
         self.logger = get_logger("logger_metadata_")
         
     def init_index(self):
-        self.ElasticsClients.create_index(_index_mappings)
+        ElasticsClients.create_index(_index_mappings)
 
     def start(self):
         self.task_handle()
+        print('>>>>>>>>>>>>>>>>>>>')
         timer = threading.Timer(self.task_time,self.start)
         timer.start()
 
@@ -39,7 +39,7 @@ class MetadataStorage:
                     "status": v['status'],
                 }
             ]
-            self.ElasticsClients.Index_Data(list,v['info_hash'])
+            ElasticsClients.Index_Data(list,v['info_hash'])
             RedisClients.deleteByKey(str(key,encoding='utf-8'))
 
         self.logger.info("种子入库任务完成 >>>> {0}-{1}!".format(time(),len(keys)))
