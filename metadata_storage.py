@@ -21,25 +21,28 @@ class MetadataStorage:
     def task_handle(self):
         keys = RedisClients.getKeys()
         self.logger.info("种子入库任务开始 >>>> {0}-{1}!".format(time(),len(keys)))
-        for key in keys:
-            value = RedisClients.getValue(str(key,encoding='utf-8'))
-            RedisClients1.set_keyinfo(str(key,encoding='utf-8'),value)
-            v = eval(value)
-            list = [
-                {   "info_hash": v['info_hash'],
-                    "bare_name": v['bare_name'],
-                    "create_time": v['create_time'],
-                    "update_time": v['update_time'],
-                    "file_size": v['file_size'],
-                    "file_num": v['file_num'],
-                    "file_type": v['file_type'],
-                    "hot": v['hot'],
-                    "file_list": str(v['file_list']),
-                    "status": v['status'],
-                }
-            ]
-            ElasticsClients.Index_Data(list,v['info_hash'])
-            RedisClients.deleteByKey(str(key,encoding='utf-8'))
+        try:
+            for key in keys:
+                value = RedisClients.getValue(str(key,encoding='utf-8'))
+                RedisClients1.set_keyinfo(str(key,encoding='utf-8'),value)
+                v = eval(value)
+                list = [
+                    {   "info_hash": v['info_hash'],
+                        "bare_name": v['bare_name'],
+                        "create_time": v['create_time'],
+                        "update_time": v['update_time'],
+                        "file_size": v['file_size'],
+                        "file_num": v['file_num'],
+                        "file_type": v['file_type'],
+                        "hot": v['hot'],
+                        "file_list": str(v['file_list']),
+                        "status": v['status'],
+                    }
+                ]
+                ElasticsClients.Index_Data(list,v['info_hash'])
+                RedisClients.deleteByKey(str(key,encoding='utf-8'))
+        except Exception as e:
+            self.logger.error("种子入库异常 >>>> {0}!".format(e))
 
         self.logger.info("种子入库任务完成 >>>> {0}-{1}!".format(time(),len(keys)))
 
