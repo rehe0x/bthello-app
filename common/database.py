@@ -42,8 +42,6 @@ class RedisClient:
         """
         """    
         self.redis.set(infohash,metadata)
-        print(str(infohash))
-
 
     def get_magnets(self, count=128):
         """
