@@ -41,10 +41,9 @@ class MetadataStorage:
                 ]
                 ElasticsClients.Index_Data(list,v['info_hash'])
                 RedisClients.deleteByKey(str(key,encoding='utf-8'))
-        except Exception as e:
+                self.logger.info("种子入库任务完成 >>>> {0}-{1}!".format(time(),len(keys)))
+         except Exception as e:
             self.logger.error("种子入库异常 >>>> {0}!".format(e))
-
-        self.logger.info("种子入库任务完成 >>>> {0}-{1}!".format(time(),len(keys)))
 
 
 # elastics 索引类型
