@@ -10,10 +10,8 @@ class Config(object):
     #任务执行时间(秒)
     #STORAGE_TASK_TIME = 10
     ################redis配置##################
-    # redis key
-    REDIS_KEY = "infohash"
     # redis 地址
-    REDIS_HOST = "39.108.218.149"
+    REDIS_HOST = "140.143.208.158"
     # redis 端口
     REDIS_PORT = 6379
     # redis 密码
