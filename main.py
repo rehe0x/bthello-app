@@ -37,12 +37,12 @@ def command_line_runner():
         t1 = threading.Thread(target=app.run,args=('0.0.0.0',port))
         t1.start()
     elif args["m"]:
-        me = MetadataStorage(2)
+        me = MetadataStorage(60)
         me.init_index()
         t2 = threading.Thread(target=me.start)
         t2.start()
     elif args["a"]:
-        me = MetadataStorage(2)
+        me = MetadataStorage(60)
         me.init_index()
         t2 = threading.Thread(target=me.start)
         t2.start()
