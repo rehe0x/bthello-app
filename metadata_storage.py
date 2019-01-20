@@ -23,6 +23,7 @@ class MetadataStorage:
             keys = RedisClients.getKeys()
             self.logger.info("种子入库任务开始 >>>> {0}-{1}!".format(time(),len(keys)))
             for key in keys:
+                print(key)
                 value = RedisClients.getValue(str(key,encoding='utf-8'))
                 RedisClients1.set_keyinfo(str(key,encoding='utf-8'),value)
                 v = eval(value)
