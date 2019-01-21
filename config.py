@@ -11,7 +11,7 @@ class Config(object):
     #STORAGE_TASK_TIME = 10
     ################redis配置##################
     # redis 地址
-    REDIS_HOST = "140.143.208.158"
+    REDIS_HOST = "127.0.0.1"
     # redis 端口
     REDIS_PORT = 6379
     # redis 密码
@@ -25,10 +25,12 @@ class Config(object):
     #elastics 索引类型
     ELASTICS_INDEX_TYPE = 'doc'
     # elastics 地址
-    ELASTICS_HOST = "39.108.218.149"
+    ELASTICS_HOST = "127.0.0.1"
     # elastics 端口
-    ELASTICS_PORT = 9200
+    ELASTICS_PORT = 9100
+    # elastics 用户名
+    ELASTICS_USER_NAME = ''
     # elastics 密码
-    ELASTICS_PASSWORD = None
+    ELASTICS_PASSWORD = ''
     # elastics 连接池最大连接量
     ELASTICS_MAX_CONNECTION = 20

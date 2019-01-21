@@ -71,7 +71,7 @@ class ElasticsClient:
         #用户名密码状态
         #self.es = Elasticsearch([ip],http_auth=('elastic', 'password'),port=9200)
         # 无用户名密码状态
-        self.es = Elasticsearch([ip],port=port,maxsize=maxsize)
+        self.es = Elasticsearch([ip],port=port,http_auth=(Config.ELASTICS_USER_NAME, Config.ELASTICS_PASSWORD),maxsize=maxsize)
 
     def create_index(self,_index_mappings):
         '''
