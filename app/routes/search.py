@@ -14,5 +14,9 @@ def index():
 def _serarch():
     value = request.args.get('value')
     data = ElasticsClients.Get_Data_By_Body(value)
-
     return render_template('list.html',metadataList=data)
+
+@serarch.route('/search/<infohash>')
+def _serarch_id(infohash):
+    data = ElasticsClients.Get_Data_Id(infohash)
+    return render_template('details.html',metadata=data)

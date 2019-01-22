@@ -165,16 +165,8 @@ class ElasticsClient:
         print(res)
 
     def Get_Data_Id(self,id):
-
-        res = self.es.get(index=self.index_name, doc_type=self.index_type,id=id)
-        print(res['_source'])
-
-        print('------------------------------------------------------------------')
-        #
-        # # 输出查询到的结果
-        for hit in res['hits']['hits']:
-            # print hit['_source']
-            print(hit['_source']['date'],hit['_source']['source'],hit['_source']['link'],hit['_source']['keyword'],hit['_source']['title'])
+        _searched = self.es.get(index=self.index_name, doc_type=self.index_type,id=id)
+        return _searched
 
     def Get_Data_By_Body(self,value):
         # doc = {'query': {'match_all': {}}}

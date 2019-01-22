@@ -54,19 +54,23 @@
   </nav>
   <main role="main" class="flex-shrink-0">
     <div class="container-fluid">
-            {% for meta in metadataList %}
             <div class="row">
                 <div class="col-sm-1"></div>
                 <div class="col-sm-8">
-                    <h4 class="mt-3"><a href="/search/{{meta._source.info_hash}}">{{meta._source.bare_name}}</a></h4>                   
-                    {% for filelist in meta._source.file_list | eval %}
-                      {% if loop.index0 > 1 %}
-                          
-                      {% else %}
-                          <p class="lead">{{ filelist.n }}  {{ filelist.l }}</p>
-                      {% endif %}
-                    {% endfor %}
-               <!-- <p class="lead">Pin a footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>main &gt; .container</code>.</p> -->
+                    <h4 class="mt-3">{{ metadata._source.bare_name }}</h4>                   
+                    <p class="lead">文件大小 : {{metadata._source.file_size}}</p>
+                    <p class="lead">文件类型 : {{metadata._source.file_type}}</p>
+                    <p class="lead">文件数量 : {{metadata._source.file_num}}</p>
+                    <p class="lead">创建时间 : {{metadata._source.create_time}}</p>
+                    <p class="lead">下载热度 : 111</p>
+                    <p class="lead">磁力连接 : 
+                        <a href="/">magnet:?xt=urn:btih:{{metadata._source.info_hash}}</a>
+                    </p>
+                    <ul>
+                        {% for filelist in metadata._source.file_list | eval %}
+                            <li>{{ filelist.n }} {{ filelist.l }}</li>
+                        {% endfor %}
+                    </ul>
                     <a href="#" class="badge badge-pill  badge-primary">Primary</a>
                     <a href="#" class="badge badge-pill  badge-secondary">Secondary</a>
                     <a href="#" class="badge badge-pill  badge-success">Success</a>
@@ -75,30 +79,6 @@
                     <a href="#" class="badge badge-pill  badge-info">Info</a>
                     <a href="#" class="badge badge-pill  badge-light">Light</a>
                     <a href="#" class="badge badge-pill  badge-dark">Dark</a>
-                </div>
-            </div>
-            {% endfor %}
-
-            <div class="row mt-5">
-                <div class="col-sm-1"></div>
-                <div class="col-sm-8">
-                    <nav aria-label="Page navigation example" >
-                        <ul class="pagination">
-                            <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                            </li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
        
