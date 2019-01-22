@@ -14,4 +14,5 @@ def index():
 def _serarch():
     value = request.args.get('value')
     data = ElasticsClients.Get_Data_By_Body(value)
+
     return render_template('list.html',metadataList=data)
