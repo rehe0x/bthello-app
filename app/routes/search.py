@@ -20,3 +20,7 @@ def _serarch():
 def _serarch_id(infohash):
     data = ElasticsClients.Get_Data_Id(infohash)
     return render_template('details.html',metadata=data)
+
+@serarch.route('/link')
+def link():
+    return render_template('link.html')
