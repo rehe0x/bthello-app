@@ -168,7 +168,7 @@ class ElasticsClient:
         _searched = self.es.get(index=self.index_name, doc_type=self.index_type,id=id)
         return _searched
 
-    def Get_Data_By_Body(self,value):
+    def Get_Data_By_Body(self,value,pageNo,pageSize):
         # doc = {'query': {'match_all': {}}}
         doc = {
                 "version": 'true',
@@ -180,11 +180,13 @@ class ElasticsClient:
                         ],
                         "tie_breaker": 0.3
                     }
-                }
+                },
+                "from":pageNo,
+	            "size":pageSize
             }
         
         _searched = self.es.search(index=self.index_name, doc_type=self.index_type, body=doc)
-        return _searched['hits']['hits']
+        return _searched['hits']
         # for hit in _searched['hits']['hits']:
         #      print(hit)
             #print(hit['_source']['date'], hit['_source']['source'], hit['_source']['link'], hit['_source']['keyword'],hit['_source']['title'])
