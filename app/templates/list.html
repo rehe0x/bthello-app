@@ -18,8 +18,8 @@
 </head>
 
 <body class="d-flex flex-column h-100">
-<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-    <a class="navbar-brand" href="#"><h4>BTHello</h4> </a>
+  <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <a class="navbar-brand" href="/"><h4>BTHello</h4> </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,10 +27,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="/link">Link</a>
         </li>
         <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -58,7 +58,7 @@
             <div class="row">
                 <div class="col-sm-1"></div>
                 <div class="col-sm-8">
-                    <h4 class="mt-3"><a href="/search/{{meta._source.info_hash}}">{{meta._source.bare_name}}</a></h4>                   
+                    <h4 class="mt-3"><a style="color:#000000" href="/search/{{meta._source.info_hash}}">{{meta._source.bare_name}}</a></h4>                   
                     {% for filelist in meta._source.file_list | eval %}
                       {% if loop.index0 > 1 %}
                           
@@ -67,14 +67,14 @@
                       {% endif %}
                     {% endfor %}
                <!-- <p class="lead">Pin a footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>main &gt; .container</code>.</p> -->
-                    <a href="#" class="badge badge-pill  badge-primary">Primary</a>
-                    <a href="#" class="badge badge-pill  badge-secondary">Secondary</a>
-                    <a href="#" class="badge badge-pill  badge-success">Success</a>
-                    <a href="#" class="badge badge-pill  badge-danger">Danger</a>
-                    <a href="#" class="badge badge-pill  badge-warning">Warning</a>
-                    <a href="#" class="badge badge-pill  badge-info">Info</a>
-                    <a href="#" class="badge badge-pill  badge-light">Light</a>
-                    <a href="#" class="badge badge-pill  badge-dark">Dark</a>
+                    <a href="#" class="badge badge-pill  badge-primary">{{meta._source.create_time}}</a>
+                    <a href="#" class="badge badge-pill  badge-secondary">{{meta._source.file_size}}</a>
+                    <a href="#" class="badge badge-pill  badge-success">{{meta._source.file_num}}</a>
+                    <a href="#" class="badge badge-pill  badge-warning">{{meta._source.file_type}}</a>
+                    <a href="#" class="badge badge-pill  badge-danger">{{meta._source.hot}}</a>
+                    <a href="#" class="badge badge-pill  badge-info">Link</a>
+                    <!-- <a href="#" class="badge badge-pill  badge-light">Light</a>
+                    <a href="#" class="badge badge-pill  badge-dark">Dark</a> -->
                 </div>
             </div>
             {% endfor %}
@@ -108,7 +108,7 @@
 
 <footer class="footer mt-auto py-3">
   <div class="container">
-    <span class="text-muted">Provide search service This site does not store any seed files.</span>
+    <span class="text-muted">Magnetic link, bt seed download, Thunder download related resources are automatically obtained by user search instructions, the results come from the network, the site does not store any information, and does not assume any responsibility, please delete within 24 hours!</span>
   </div>
 </footer>
 </body>

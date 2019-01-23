@@ -18,8 +18,8 @@
 </head>
 
 <body class="d-flex flex-column h-100">
-<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-    <a class="navbar-brand" href="#"><h4>BTHello</h4> </a>
+  <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <a class="navbar-brand" href="/"><h4>BTHello</h4> </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,10 +27,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="/link">Link</a>
         </li>
         <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -58,27 +58,26 @@
                 <div class="col-sm-1"></div>
                 <div class="col-sm-8">
                     <h4 class="mt-3">{{ metadata._source.bare_name }}</h4>                   
-                    <p class="lead">文件大小 : {{metadata._source.file_size}}</p>
-                    <p class="lead">文件类型 : {{metadata._source.file_type}}</p>
-                    <p class="lead">文件数量 : {{metadata._source.file_num}}</p>
-                    <p class="lead">创建时间 : {{metadata._source.create_time}}</p>
-                    <p class="lead">下载热度 : 111</p>
-                    <p class="lead">磁力连接 : 
-                        <a href="/">magnet:?xt=urn:btih:{{metadata._source.info_hash}}</a>
+                    <p class="lead">File Size : {{metadata._source.file_size}}</p>
+                    <p class="lead">File Type : {{metadata._source.file_type}}</p>
+                    <p class="lead">Files Number : {{metadata._source.file_num}}</p>
+                    <p class="lead">Create Time : {{metadata._source.create_time}}</p>
+                    <p class="lead">Hot : 111</p>
+                    <p class="lead">Magnetic link : 
+                        <a href="#" class="badge badge-pill  badge-light">magnet:?xt=urn:btih:{{metadata._source.info_hash}}</a>
                     </p>
+                    <p class="lead">Files List : </p>
                     <ul>
                         {% for filelist in metadata._source.file_list | eval %}
                             <li>{{ filelist.n }} {{ filelist.l }}</li>
                         {% endfor %}
                     </ul>
-                    <a href="#" class="badge badge-pill  badge-primary">Primary</a>
-                    <a href="#" class="badge badge-pill  badge-secondary">Secondary</a>
-                    <a href="#" class="badge badge-pill  badge-success">Success</a>
-                    <a href="#" class="badge badge-pill  badge-danger">Danger</a>
-                    <a href="#" class="badge badge-pill  badge-warning">Warning</a>
-                    <a href="#" class="badge badge-pill  badge-info">Info</a>
-                    <a href="#" class="badge badge-pill  badge-light">Light</a>
-                    <a href="#" class="badge badge-pill  badge-dark">Dark</a>
+                    <a href="#" class="badge badge-pill  badge-primary">{{metadata._source.create_time}}</a>
+                    <a href="#" class="badge badge-pill  badge-secondary">{{metadata._source.file_size}}</a>
+                    <a href="#" class="badge badge-pill  badge-success">{{metadata._source.file_num}}</a>
+                    <a href="#" class="badge badge-pill  badge-warning">{{metadata._source.file_type}}</a>
+                    <a href="#" class="badge badge-pill  badge-danger">{{metadata._source.hot}}</a>
+                    <a href="#" class="badge badge-pill  badge-info">Link</a>
                 </div>
             </div>
        
@@ -88,7 +87,7 @@
 
 <footer class="footer mt-auto py-3">
   <div class="container">
-    <span class="text-muted">Provide search service This site does not store any seed files.</span>
+    <span class="text-muted">Magnetic link, bt seed download, Thunder download related resources are automatically obtained by user search instructions, the results come from the network, the site does not store any information, and does not assume any responsibility, please delete within 24 hours!</span>
   </div>
 </footer>
 </body>
