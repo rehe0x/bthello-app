@@ -9,12 +9,15 @@
 <link rel="stylesheet" href="{{ url_for('static',filename='static/css/index.css') }}">
 <!-- 新 Bootstrap4 核心 CSS 文件 -->
 <link rel="stylesheet" href="{{ url_for('static',filename='static/bootstrap/css/bootstrap.min.css') }}">
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="{{ url_for('static',filename='static/js/clipboard.min.js') }}"></script>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="{{ url_for('static',filename='static/js/jquery-3.3.1.slim.min.js') }}"></script>
  <!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
 <script src="{{ url_for('static',filename='static/bootstrap/js/popper-1.14.3.min.js') }}"></script>
 <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
 <script src="{{ url_for('static',filename='static/bootstrap/js/bootstrap.min.js') }}"></script>
+
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -53,6 +56,14 @@
     </div>
   </nav>
   <main role="main" class="flex-shrink-0">
+
+    <div style="display: none;" class="alert alert-success alert-dismissible fade show text-center" role="alert">
+      copy success!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
     <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-1"></div>
@@ -64,7 +75,7 @@
                     <p class="lead">Create Time : {{metadata._source.create_time}}</p>
                     <p class="lead">Hot : 111</p>
                     <p class="lead">Magnetic link : 
-                        <a href="#" class="badge badge-pill  badge-light">magnet:?xt=urn:btih:{{metadata._source.info_hash}}</a>
+                        <a href="javascript:void(0)"  class="badge badge-pill  badge-light copy btn">magnet:?xt=urn:btih:{{metadata._source.info_hash}}</a>
                     </p>
                     <p class="lead">Files List : </p>
                     <ul>
@@ -91,5 +102,25 @@
   </div>
 </footer>
 </body>
+<script>
+$(function(){
+  $(".copy").on("click",function(){
+    data = $(".copy").text()
+    var clipboard = new ClipboardJS('.btn', {
+      text: function() {
+          return data;
+      }
+    });
+    clipboard.on('success', function (e) {
+      $(".alert").show()
+      setTimeout(function(){
+        $(".alert").hide()
+        e.clearSelection();
+        clipboard.destroy();
+      },2000)
+    });
+  })
+})
 
+</script>
 </html>
