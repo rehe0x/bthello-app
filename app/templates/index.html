@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title>BT Search Magnetic Search Seed Search</title>
+<title>BTHi BT Search Magnetic Search Seed Search</title>
 <!-- 自定义 CSS 文件 -->
 <link rel="stylesheet" href="{{ url_for('static',filename='static/css/index.css') }}">
 <!-- 新 Bootstrap4 核心 CSS 文件 -->
@@ -19,7 +19,7 @@
 
 <body class="d-flex flex-column h-100">
   <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-    <a class="navbar-brand" href="/"><h4>BTHello</h4> </a>
+    <a class="navbar-brand" href="/"><h4>BTHi</h4> </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -54,16 +54,16 @@
   </nav>
   <main role="main" class="flex-shrink-0">
     <div class="jumbotron text-center">
-      <h1>BTHello</h1>
+      <h1>BTHi</h1>
       <h3>BT Search Magnetic Search Seed Search!</h3> 
     </div>
     <div class="container-fluid">
         <div class="row">
           <div class="m-auto"> 
-            <form class="form-inline my-2 my-lg-0" action="/search">
-              <input class="form-control mr-sm-2" type="search" name="value" placeholder="Search" aria-label="Search">
+            <form class="form-inline my-2 my-lg-0" onkeydown="if(event.keyCode==13)return false" action="#">
+              <input class="form-control mr-sm-2" type="search" id="value" placeholder="Search"  aria-label="Search">
               <button class="btn btn-outline-success my-2 my-sm-0 subsearch" type="button">Search</button>
-            </form>
+            </form> 
           </div>
         </div>
       </div>
@@ -80,9 +80,17 @@
 <script>
 $(function(){
   $(".subsearch").on("click",function(){
-    val = $("input[name='value']").val()
+    val = $("#value").val()
     window.location.href="/search/"+val+"-1.html"
   })
 })
+$(window).keydown(function(e){
+    var curKey = e.which; 
+    if(curKey == 13){
+      val = $("#value").val()
+      window.location.href="/search/"+val+"-1.html"
+    }
+})
+
 </script>
 </html>

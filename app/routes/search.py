@@ -27,7 +27,7 @@ def _serarch(val):
     count = int((total - 1) / pageSize + 1)
     #最大10页
     count =10 if count > 10 else count
-    return render_template('list.html',metadataList=data,count=range(1,count+1))
+    return render_template('list.html',metadataList=data,count=range(1,count+1),title = v)
 
 @serarch.route('/search/details-<infohash>')
 def _serarch_id(infohash):
