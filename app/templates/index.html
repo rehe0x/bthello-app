@@ -81,14 +81,14 @@
 $(function(){
   $(".subsearch").on("click",function(){
     val = $("#value").val()
-    window.location.href="/search/"+val+"-1.html"
+    window.location.href="/search/"+val+"/1"
   })
 })
 $(window).keydown(function(e){
     var curKey = e.which; 
     if(curKey == 13){
       val = $("#value").val()
-      window.location.href="/search/"+val+"-1.html"
+      window.location.href="/search/"+val+"/1"
     }
 })
 
