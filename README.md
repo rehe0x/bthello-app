@@ -33,7 +33,7 @@
 
 - Python3.x
 - redis4.x
-- elasticsearch6.x
+- elasticsearch6.x 需要安装ik分词器
 
 ### 爬虫程序部署
 
